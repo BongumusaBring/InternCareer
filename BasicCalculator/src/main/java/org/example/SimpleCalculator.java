@@ -1,3 +1,4 @@
+package org.example;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -54,7 +55,7 @@ public class SimpleCalculator extends JFrame {
         add(clearButton);
         add(divideButton);
         add(multiplyButton);
-        
+
         add(numberButtons[7]);
         add(numberButtons[8]);
         add(numberButtons[9]);
@@ -64,17 +65,65 @@ public class SimpleCalculator extends JFrame {
         add(numberButtons[5]);
         add(numberButtons[6]);
         add(addButton);
-        
+
         add(numberButtons[1]);
         add(numberButtons[2]);
         add(numberButtons[3]);
         add(equalsButton);
-        
+
         add(numberButtons[0]);
         add(commaButton);
-   
+
         // visible
         setVisible(true);
+    }
+
+    public JTextField getTextField() {
+        return textField;
+    }
+
+    public ActionListener getNumberButtonActionListener() {
+        return new NumberButtonActionListener();
+    }
+
+    public ActionListener getOperationButtonActionListener() {
+        return new OperationButtonActionListener();
+    }
+
+    public JButton getAddButton() {
+        return createOperationButton("+");
+    }
+
+    public JButton getSubtractButton() {
+        return createOperationButton("-");
+    }
+
+    public JButton getMultiplyButton() {
+        return createOperationButton("*");
+    }
+
+    public JButton getDivideButton() {
+        return createOperationButton("/");
+    }
+
+    public JButton getEqualsButton() {
+        return createEqualsButton();
+    }
+
+    public JButton getClearButton() {
+        return createClearButton();
+    }
+
+    public ActionListener getEqualsButtonActionListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                secondNumber = Double.parseDouble(textField.getText());
+                double result = performOperation(firstNumber, secondNumber, operator);
+                textField.setText(String.valueOf(result));
+                operator = null;
+            }
+        };
     }
 
     private JButton createOperationButton(String operation) {
@@ -158,3 +207,4 @@ public class SimpleCalculator extends JFrame {
         });
     }
 }
+
